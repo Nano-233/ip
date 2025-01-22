@@ -9,8 +9,7 @@ public class Luna {
     String start = "Hello I'm Luna \nHow may I help?\n";
     String end = "Bye~\n";
 
-    String[] tasks = new String[100]; //array of tasks
-    boolean[] isDone = new boolean[100];
+    Task[] tasks = new Task[100]; //array of tasks
     int taskCount = 0;
 
     Scanner sc = new Scanner(System.in);
@@ -30,16 +29,16 @@ public class Luna {
         } else {
           System.out.println("Here are the tasks in your list:");
           for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". [" + (isDone[i] ? "X" : " ") + "] " + tasks[i]);
+            System.out.println((i + 1) + ". " + tasks[i]);
           }
         }
 
       } else if (input.startsWith("mark ")) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index >= 0 && index < taskCount) {
-          isDone[index] = true;
+          tasks[index].mark();
           System.out.print(line + "Nice! I've marked this task as done:\n");
-          System.out.println("[X] " + tasks[index] + "\n" + line);
+          System.out.println(tasks[index] + "\n" + line);
         } else {
           System.out.print(line + "Invalid task number.\n" + line);
         }
@@ -47,16 +46,15 @@ public class Luna {
       } else if (input.startsWith("unmark ")) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index >= 0 && index < taskCount) {
-          isDone[index] = false;
+          tasks[index].unmark();
           System.out.print(line + "OK, I've marked this task as not done yet:\n");
-          System.out.println("[ ] " + tasks[index] + "\n" + line);
+          System.out.println(tasks[index] + "\n" + line);
         } else {
           System.out.print(line + "Invalid task number.\n" + line);
         }
 
       } else {
-        tasks[taskCount] = input;
-        isDone[taskCount] = false;
+        tasks[taskCount] = new Task(input);
         taskCount++;
         System.out.print(line + "Added: \"" + input + "\"\n" + line);
       }
