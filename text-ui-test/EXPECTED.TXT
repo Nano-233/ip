@@ -6,43 +6,54 @@ Hello I'm Luna
 How may I help?
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it~ I've added this task:
 [T][ ] read book
-Now you have 1 tasks in the list.
+Now you have 1 tasks in the list!!.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
+Got it~ I've added this task:
 [D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list.
+Now you have 2 tasks in the list!!.
 ____________________________________________________________
 ____________________________________________________________
-Got it. I've added this task:
-[E][ ] project meeting (from: Mon 2pm to: 4pm)
-Now you have 3 tasks in the list.
+Got it~ I've added this task:
+[E][ ] project meeting (from: Monday 2pm to: 4pm)
+Now you have 3 tasks in the list!!.
 ____________________________________________________________
 ____________________________________________________________
-Nice! I've marked this task as done:
-[D][X] return book (by: Sunday)
+Incorrect format :< Correct format for todo is `todo <description>`
+____________________________________________________________
+____________________________________________________________
+Incorrect format :< Correct format for deadline is `deadline <description> /by <time>`
+____________________________________________________________
+____________________________________________________________
+Incorrect format :< Correct format for event is `event <description> /from <start> /to <end>`
+____________________________________________________________
+____________________________________________________________
+Incorrect format :< Correct format for deadline is `deadline <description> /by <time>`
+____________________________________________________________
+____________________________________________________________
+Incorrect format :< Correct format for event is `event <description> /from <start> /to <end>`
+____________________________________________________________
+____________________________________________________________
+Yay!~ I've marked this task as done:
+[T][X] read book
+____________________________________________________________
+____________________________________________________________
+Check the task number again to make sure it's correct~
+____________________________________________________________
+____________________________________________________________
+OKi~ I've marked this task as not done yet:
+[T][ ] read book
+____________________________________________________________
+____________________________________________________________
+Check the task number again to make sure it's correct~
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
 1. [T][ ] read book
-2. [D][X] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
-____________________________________________________________
-____________________________________________________________
-Nice! I've marked this task as done:
-[T][X] read book
-____________________________________________________________
-____________________________________________________________
-OK, I've marked this task as not done yet:
-[D][ ] return book (by: Sunday)
-____________________________________________________________
-____________________________________________________________
-Here are the tasks in your list:
-1. [T][X] read book
 2. [D][ ] return book (by: Sunday)
-3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+3. [E][ ] project meeting (from: Monday 2pm to: 4pm)
 ____________________________________________________________
 ____________________________________________________________
 Bye~

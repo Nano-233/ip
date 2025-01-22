@@ -1,9 +1,14 @@
 todo read book
 deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
-mark 2
-list
+event project meeting /from Monday 2pm /to 4pm
+todo
+deadline
+event
+deadline placeholder
+event meeting /from
 mark 1
-unmark 2
+mark 5
+unmark 1
+unmark 5
 list
 bye
