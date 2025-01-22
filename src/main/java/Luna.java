@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Luna {
@@ -9,8 +10,7 @@ public class Luna {
     String start = "Hello I'm Luna \nHow may I help?\n";
     String end = "Bye~\n";
 
-    Task[] tasks = new Task[100]; //array of tasks
-    int taskCount = 0;
+    ArrayList<Task> tasks = new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
 
@@ -25,44 +25,51 @@ public class Luna {
 
         } else if (input.equalsIgnoreCase("list")) {
           System.out.print(line);
-          if (taskCount == 0) {
+          if (tasks.isEmpty()) {
             System.out.println("Your list is empty :<. Add something!");
           } else {
             System.out.println("Here are the tasks in your list:");
-            for (int i = 0; i < taskCount; i++) {
-              System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+              System.out.println((i + 1) + ". " + tasks.get(i));
             }
           }
           System.out.print(line);
 
-        } else if (input.startsWith("mark ")) {
-          int index = Integer.parseInt(input.split(" ")[1]) - 1;
-          if (index < 0 || index >= taskCount) {
+        } else if (input.startsWith("mark")) {
+          String remainingInput = input.length() > 4 ? input.substring(4).trim() : "";
+          if (remainingInput.isEmpty()) {
+            throw new LunaException("Incorrect format :< Correct format for mark is `mark <task number>`");
+          }
+          int index = Integer.parseInt(remainingInput) - 1;
+          if (index < 0 || index >= tasks.size()) {
             throw new LunaException("Check the task number again to make sure it's correct~");
           }
-          tasks[index].mark();
+          tasks.get(index).mark();
           System.out.print(line + "Yay!~ I've marked this task as done:\n");
-          System.out.print(tasks[index] + "\n" + line);
+          System.out.print(tasks.get(index) + "\n" + line);
 
-        } else if (input.startsWith("unmark ")) {
-          int index = Integer.parseInt(input.split(" ")[1]) - 1;
-          if (index < 0 || index >= taskCount) {
+        } else if (input.startsWith("unmark")) {
+          String remainingInput = input.length() > 6 ? input.substring(6).trim() : "";
+          if (remainingInput.isEmpty()) {
+            throw new LunaException("Incorrect format :< Correct format for unmark is `unmark <task number>`");
+          }
+          int index = Integer.parseInt(remainingInput) - 1;
+          if (index < 0 || index >= tasks.size()) {
             throw new LunaException("Check the task number again to make sure it's correct~");
           }
-          tasks[index].unmark();
+          tasks.get(index).unmark();
           System.out.print(line + "OKi~ I've marked this task as not done yet:\n");
-          System.out.print(tasks[index] + "\n" + line);
+          System.out.print(tasks.get(index) + "\n" + line);
 
         } else if (input.startsWith("todo")) {
           String description = input.length() > 4 ? input.substring(4).trim() : "";
           if (description.isEmpty()) {
             throw new LunaException("Incorrect format :< Correct format for todo is `todo <description>`");
           }
-          tasks[taskCount] = new Todo(description);
-          taskCount++;
+          tasks.add(new Todo(description));
           System.out.print(line + "Got it~ I've added this task:\n");
-          System.out.println(tasks[taskCount - 1]);
-          System.out.print("Now you have " + taskCount + " tasks in the list!!.\n" + line);
+          System.out.println(tasks.get(tasks.size() - 1));
+          System.out.print("Now you have " + tasks.size() + " tasks in the list!!\n" + line);
 
         } else if (input.startsWith("deadline")) {
           String remainingInput = input.length() > 8 ? input.substring(8).trim() : "";
@@ -72,11 +79,10 @@ public class Luna {
           }
           String description = parts[0].trim();
           String by = parts[1].trim();
-          tasks[taskCount] = new Deadline(description, by);
-          taskCount++;
+          tasks.add(new Deadline(description, by));
           System.out.print(line + "Got it~ I've added this task:\n");
-          System.out.println(tasks[taskCount - 1]);
-          System.out.print("Now you have " + taskCount + " tasks in the list!!.\n" + line);
+          System.out.println(tasks.get(tasks.size() - 1));
+          System.out.print("Now you have " + tasks.size() + " tasks in the list!!\n" + line);
 
         } else if (input.startsWith("event")) {
           String remainingInput = input.length() > 5 ? input.substring(5).trim() : "";
@@ -87,11 +93,24 @@ public class Luna {
           String description = parts[0].trim();
           String from = parts[1].trim();
           String to = parts[2].trim();
-          tasks[taskCount] = new Event(description, from, to);
-          taskCount++;
+          tasks.add(new Event(description, from, to));
           System.out.print(line + "Got it~ I've added this task:\n");
-          System.out.println(tasks[taskCount - 1]);
-          System.out.print("Now you have " + taskCount + " tasks in the list!!.\n" + line);
+          System.out.println(tasks.get(tasks.size() - 1));
+          System.out.print("Now you have " + tasks.size() + " tasks in the list!!\n" + line);
+
+        } else if (input.startsWith("delete")) {
+          String remainingInput = input.length() > 6 ? input.substring(6).trim() : "";
+          if (remainingInput.isEmpty()) {
+            throw new LunaException("Incorrect format :< Correct format for delete is `delete <task number>`");
+          }
+          int index = Integer.parseInt(remainingInput) - 1;
+          if (index < 0 || index >= tasks.size()) {
+            throw new LunaException("Check the task number again to make sure it's correct~");
+          }
+          Task removedTask = tasks.remove(index);
+          System.out.print(line + "Oki~ I've removed this task!:\n");
+          System.out.println(removedTask);
+          System.out.print("Now you have " + tasks.size() + " tasks left in the list~\n" + line);
 
         } else {
           throw new LunaException("Sorry :< I don't quite understand");
