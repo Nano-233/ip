@@ -5,7 +5,7 @@ public class Luna {
     String line = "____________________________________________________________\n";
     String logo = "     /\\_/\\  \n" +
         "    ( o.o )  \n" +
-        "     > ❤ <    \n";
+        "     > <3 <    \n";
     String start = "Hello I'm Luna \nHow may I help?\n";
     String end = "Bye~\n";
 
@@ -32,13 +32,14 @@ public class Luna {
             System.out.println((i + 1) + ". " + tasks[i]);
           }
         }
+        System.out.print(line);
 
       } else if (input.startsWith("mark ")) {
         int index = Integer.parseInt(input.split(" ")[1]) - 1;
         if (index >= 0 && index < taskCount) {
           tasks[index].mark();
           System.out.print(line + "Nice! I've marked this task as done:\n");
-          System.out.println(tasks[index] + "\n" + line);
+          System.out.print(tasks[index] + "\n" + line);
         } else {
           System.out.print(line + "Invalid task number.\n" + line);
         }
@@ -48,7 +49,7 @@ public class Luna {
         if (index >= 0 && index < taskCount) {
           tasks[index].unmark();
           System.out.print(line + "OK, I've marked this task as not done yet:\n");
-          System.out.println(tasks[index] + "\n" + line);
+          System.out.print(tasks[index] + "\n" + line);
         } else {
           System.out.print(line + "Invalid task number.\n" + line);
         }
@@ -59,7 +60,7 @@ public class Luna {
         taskCount++;
         System.out.print(line + "Got it. I've added this task:\n");
         System.out.println(tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.\n" + line);
+        System.out.print("Now you have " + taskCount + " tasks in the list.\n" + line);
 
       } else if (input.startsWith("deadline ")) {
         String[] parts = input.substring(9).split("/by");
@@ -69,7 +70,7 @@ public class Luna {
         taskCount++;
         System.out.print(line + "Got it. I've added this task:\n");
         System.out.println(tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.\n" + line);
+        System.out.print("Now you have " + taskCount + " tasks in the list.\n" + line);
 
       } else if (input.startsWith("event ")) {
         String[] parts = input.substring(6).split("/from|/to");
@@ -80,7 +81,7 @@ public class Luna {
         taskCount++;
         System.out.print(line + "Got it. I've added this task:\n");
         System.out.println(tasks[taskCount - 1]);
-        System.out.println("Now you have " + taskCount + " tasks in the list.\n" + line);
+        System.out.print("Now you have " + taskCount + " tasks in the list.\n" + line);
 
       } else {
         System.out.print(line + "I'm sorry, I don't understand that command.\n" + line);
