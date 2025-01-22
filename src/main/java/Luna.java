@@ -53,10 +53,37 @@ public class Luna {
           System.out.print(line + "Invalid task number.\n" + line);
         }
 
-      } else {
-        tasks[taskCount] = new Task(input);
+      } else if (input.startsWith("todo ")) {
+        String description = input.substring(5).trim();
+        tasks[taskCount] = new Todo(description);
         taskCount++;
-        System.out.print(line + "Added: \"" + input + "\"\n" + line);
+        System.out.print(line + "Got it. I've added this task:\n");
+        System.out.println(tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.\n" + line);
+
+      } else if (input.startsWith("deadline ")) {
+        String[] parts = input.substring(9).split("/by");
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+        tasks[taskCount] = new Deadline(description, by);
+        taskCount++;
+        System.out.print(line + "Got it. I've added this task:\n");
+        System.out.println(tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.\n" + line);
+
+      } else if (input.startsWith("event ")) {
+        String[] parts = input.substring(6).split("/from|/to");
+        String description = parts[0].trim();
+        String from = parts[1].trim();
+        String to = parts[2].trim();
+        tasks[taskCount] = new Event(description, from, to);
+        taskCount++;
+        System.out.print(line + "Got it. I've added this task:\n");
+        System.out.println(tasks[taskCount - 1]);
+        System.out.println("Now you have " + taskCount + " tasks in the list.\n" + line);
+
+      } else {
+        System.out.print(line + "I'm sorry, I don't understand that command.\n" + line);
       }
     }
 
