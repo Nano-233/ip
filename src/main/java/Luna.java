@@ -2,6 +2,24 @@ import java.util.ArrayList;
 import java.util.Scanner;  // Import the Scanner class
 
 public class Luna {
+
+  // Nested ErrorType Enum
+  public enum ErrorType {
+    INVALID_FORMAT("Incorrect format :< "),
+    INVALID_TASK_NUMBER("Check the task number again to make sure it's correct~"),
+    UNKNOWN_COMMAND("Sorry :< I don't quite understand");
+
+    private final String message;
+
+    ErrorType(String message) {
+      this.message = message;
+    }
+
+    public String getMessage(String specificMessage) {
+      return message + specificMessage;
+    }
+  }
+
   public static void main(String[] args) {
     String line = "____________________________________________________________\n";
     String logo = "     /\\_/\\  \n" +
@@ -38,11 +56,11 @@ public class Luna {
         } else if (input.startsWith("mark")) {
           String remainingInput = input.length() > 4 ? input.substring(4).trim() : "";
           if (remainingInput.isEmpty()) {
-            throw new LunaException("Incorrect format :< Correct format for mark is `mark <task number>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for mark is `mark <task number>`");
           }
           int index = Integer.parseInt(remainingInput) - 1;
           if (index < 0 || index >= tasks.size()) {
-            throw new LunaException("Check the task number again to make sure it's correct~");
+            throw new LunaException(ErrorType.INVALID_TASK_NUMBER, "");
           }
           tasks.get(index).mark();
           System.out.print(line + "Yay!~ I've marked this task as done:\n");
@@ -51,11 +69,11 @@ public class Luna {
         } else if (input.startsWith("unmark")) {
           String remainingInput = input.length() > 6 ? input.substring(6).trim() : "";
           if (remainingInput.isEmpty()) {
-            throw new LunaException("Incorrect format :< Correct format for unmark is `unmark <task number>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for unmark is `unmark <task number>`");
           }
           int index = Integer.parseInt(remainingInput) - 1;
           if (index < 0 || index >= tasks.size()) {
-            throw new LunaException("Check the task number again to make sure it's correct~");
+            throw new LunaException(ErrorType.INVALID_TASK_NUMBER, "");
           }
           tasks.get(index).unmark();
           System.out.print(line + "OKi~ I've marked this task as not done yet:\n");
@@ -64,7 +82,7 @@ public class Luna {
         } else if (input.startsWith("todo")) {
           String description = input.length() > 4 ? input.substring(4).trim() : "";
           if (description.isEmpty()) {
-            throw new LunaException("Incorrect format :< Correct format for todo is `todo <description>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for todo is `todo <description>`");
           }
           tasks.add(new Todo(description));
           System.out.print(line + "Got it~ I've added this task:\n");
@@ -75,7 +93,7 @@ public class Luna {
           String remainingInput = input.length() > 8 ? input.substring(8).trim() : "";
           String[] parts = remainingInput.split("/by", 2);
           if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new LunaException("Incorrect format :< Correct format for deadline is `deadline <description> /by <time>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for deadline is `deadline <description> /by <time>`");
           }
           String description = parts[0].trim();
           String by = parts[1].trim();
@@ -88,7 +106,7 @@ public class Luna {
           String remainingInput = input.length() > 5 ? input.substring(5).trim() : "";
           String[] parts = remainingInput.split("/from|/to", 3);
           if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            throw new LunaException("Incorrect format :< Correct format for event is `event <description> /from <start> /to <end>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for event is `event <description> /from <start> /to <end>`");
           }
           String description = parts[0].trim();
           String from = parts[1].trim();
@@ -101,11 +119,11 @@ public class Luna {
         } else if (input.startsWith("delete")) {
           String remainingInput = input.length() > 6 ? input.substring(6).trim() : "";
           if (remainingInput.isEmpty()) {
-            throw new LunaException("Incorrect format :< Correct format for delete is `delete <task number>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for delete is `delete <task number>`");
           }
           int index = Integer.parseInt(remainingInput) - 1;
           if (index < 0 || index >= tasks.size()) {
-            throw new LunaException("Check the task number again to make sure it's correct~");
+            throw new LunaException(ErrorType.INVALID_TASK_NUMBER, "");
           }
           Task removedTask = tasks.remove(index);
           System.out.print(line + "Oki~ I've removed this task!:\n");
@@ -113,7 +131,7 @@ public class Luna {
           System.out.print("Now you have " + tasks.size() + " tasks left in the list~\n" + line);
 
         } else {
-          throw new LunaException("Sorry :< I don't quite understand");
+          throw new LunaException(ErrorType.UNKNOWN_COMMAND, "");
         }
 
       } catch (LunaException e) {
