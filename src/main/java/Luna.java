@@ -27,7 +27,7 @@ public class Luna {
     String start = "Hello I'm Luna \nHow may I help?\n";
     String end = "Bye~\n";
 
-    ArrayList<Task> tasks = LunaStorage.loadTasks(); // Load tasks from file
+    ArrayList<Task> tasks = LunaStorage.loadTasks();
 
     Scanner sc = new Scanner(System.in);
 
@@ -62,6 +62,7 @@ public class Luna {
             throw new LunaException(ErrorType.INVALID_TASK_NUMBER, "");
           }
           tasks.get(index).mark();
+          LunaStorage.saveTasks(tasks);
           System.out.print(line + "Yay!~ I've marked this task as done:\n");
           System.out.print(tasks.get(index) + "\n" + line);
 
@@ -75,6 +76,7 @@ public class Luna {
             throw new LunaException(ErrorType.INVALID_TASK_NUMBER, "");
           }
           tasks.get(index).unmark();
+          LunaStorage.saveTasks(tasks);
           System.out.print(line + "OKi~ I've marked this task as not done yet:\n");
           System.out.print(tasks.get(index) + "\n" + line);
 
@@ -84,6 +86,7 @@ public class Luna {
             throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for todo is `todo <description>`");
           }
           tasks.add(new Todo(description));
+          LunaStorage.saveTasks(tasks);
           System.out.print(line + "Got it~ I've added this task:\n");
           System.out.println(tasks.get(tasks.size() - 1));
           System.out.print("Now you have " + tasks.size() + " tasks in the list!!\n" + line);
@@ -92,11 +95,12 @@ public class Luna {
           String remainingInput = input.length() > 8 ? input.substring(8).trim() : "";
           String[] parts = remainingInput.split("/by", 2);
           if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for deadline is `deadline <description> /by <time>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for deadline is `deadline <description> /by <dd/mm/yyyy>`");
           }
           String description = parts[0].trim();
           String by = parts[1].trim();
           tasks.add(new Deadline(description, by));
+          LunaStorage.saveTasks(tasks);
           System.out.print(line + "Got it~ I've added this task:\n");
           System.out.println(tasks.get(tasks.size() - 1));
           System.out.print("Now you have " + tasks.size() + " tasks in the list!!\n" + line);
@@ -105,12 +109,13 @@ public class Luna {
           String remainingInput = input.length() > 5 ? input.substring(5).trim() : "";
           String[] parts = remainingInput.split("/from|/to", 3);
           if (parts.length < 3 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty() || parts[2].trim().isEmpty()) {
-            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for event is `event <description> /from <start> /to <end>`");
+            throw new LunaException(ErrorType.INVALID_FORMAT, "Correct format for event is `event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>`");
           }
           String description = parts[0].trim();
           String from = parts[1].trim();
           String to = parts[2].trim();
           tasks.add(new Event(description, from, to));
+          LunaStorage.saveTasks(tasks);
           System.out.print(line + "Got it~ I've added this task:\n");
           System.out.println(tasks.get(tasks.size() - 1));
           System.out.print("Now you have " + tasks.size() + " tasks in the list!!\n" + line);
@@ -125,6 +130,7 @@ public class Luna {
             throw new LunaException(ErrorType.INVALID_TASK_NUMBER, "");
           }
           Task removedTask = tasks.remove(index);
+          LunaStorage.saveTasks(tasks);
           System.out.print(line + "Oki~ I've removed this task!:\n");
           System.out.println(removedTask);
           System.out.print("Now you have " + tasks.size() + " tasks left in the list~\n" + line);
@@ -132,9 +138,6 @@ public class Luna {
         } else {
           throw new LunaException(ErrorType.UNKNOWN_COMMAND, "");
         }
-
-        LunaStorage.saveTasks(tasks); // Save tasks after every operation
-
       } catch (LunaException e) {
         System.out.print(line + e.getMessage() + "\n" + line);
       } catch (NumberFormatException e) {

@@ -23,6 +23,7 @@ public class LunaStorage {
 
   public static ArrayList<Task> loadTasks() {
     ArrayList<Task> tasks = new ArrayList<>();
+    int skippedTasks = 0;
     try {
       File file = new File(FILE_PATH);
       if (!file.exists()) {
@@ -31,12 +32,22 @@ public class LunaStorage {
       BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
       String line;
       while ((line = reader.readLine()) != null) {
-        tasks.add(Task.fromFileFormat(line));
+        Task task = Task.fromFileFormat(line);
+        if (task != null) {
+          tasks.add(task);
+        } else {
+          skippedTasks++;
+        }
       }
       reader.close();
     } catch (IOException e) {
       System.out.println("Failed to load tasks.");
     }
+
+    if (skippedTasks > 0) {
+      System.out.println("Skipped " + skippedTasks + " corrupted tasks.");
+    }
     return tasks;
   }
+
 }
