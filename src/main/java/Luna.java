@@ -1,9 +1,8 @@
 import java.util.ArrayList;
-import java.util.Scanner;  // Import the Scanner class
+import java.util.Scanner;
 
 public class Luna {
 
-  // Nested ErrorType Enum
   public enum ErrorType {
     INVALID_FORMAT("Incorrect format :< "),
     INVALID_TASK_NUMBER("Check the task number again to make sure it's correct~"),
@@ -28,11 +27,11 @@ public class Luna {
     String start = "Hello I'm Luna \nHow may I help?\n";
     String end = "Bye~\n";
 
-    ArrayList<Task> tasks = new ArrayList<>();
+    ArrayList<Task> tasks = LunaStorage.loadTasks(); // Load tasks from file
 
     Scanner sc = new Scanner(System.in);
 
-    System.out.print(line + logo + start + line); //start msg
+    System.out.print(line + logo + start + line);
 
     while (true) {
       String input = sc.nextLine().trim();
@@ -134,6 +133,8 @@ public class Luna {
           throw new LunaException(ErrorType.UNKNOWN_COMMAND, "");
         }
 
+        LunaStorage.saveTasks(tasks); // Save tasks after every operation
+
       } catch (LunaException e) {
         System.out.print(line + e.getMessage() + "\n" + line);
       } catch (NumberFormatException e) {
@@ -141,7 +142,7 @@ public class Luna {
       }
     }
 
-    System.out.print(line + end + line); //end msg
+    System.out.print(line + end + line);
     sc.close();
     System.exit(0);
   }
