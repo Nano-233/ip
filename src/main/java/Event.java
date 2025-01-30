@@ -21,7 +21,7 @@ public class Event extends Task {
       this.from = LocalDate.parse(from.trim(), INPUT_FORMATTER);
       this.to = LocalDate.parse(to.trim(), INPUT_FORMATTER);
     } catch (DateTimeParseException e) {
-      throw new LunaException(Luna.ErrorType.INVALID_FORMAT, "Correct format for event is `event <description> /from <d/M/yyyy> /to <d/M/yyyy>`");
+      throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format for event is `event <description> /from <d/M/yyyy> /to <d/M/yyyy>`");
     }
   }
 

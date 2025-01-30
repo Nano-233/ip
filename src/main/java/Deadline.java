@@ -18,7 +18,7 @@ public class Deadline extends Task {
     try {
       this.by = LocalDate.parse(by.trim(), INPUT_FORMATTER);
     } catch (DateTimeParseException e) {
-      throw new LunaException(Luna.ErrorType.INVALID_FORMAT, "Correct format for deadline is `deadline <description> /by <d/M/yyyy>`");
+      throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format for deadline is `deadline <description> /by <d/M/yyyy>`");
     }
   }
 
