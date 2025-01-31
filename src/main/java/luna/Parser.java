@@ -4,6 +4,7 @@ import luna.command.AddCommand;
 import luna.command.Command;
 import luna.command.DeleteCommand;
 import luna.command.ExitCommand;
+import luna.command.FindCommand;
 import luna.command.ListCommand;
 import luna.command.MarkCommand;
 import luna.command.UnmarkCommand;
@@ -24,6 +25,8 @@ public class Parser {
             return new UnmarkCommand(userInput);
         case "delete":
             return new DeleteCommand(userInput);
+        case "find":
+            return new FindCommand(userInput);
         case "bye":
             return new ExitCommand();
         default:
