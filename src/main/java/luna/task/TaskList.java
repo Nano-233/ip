@@ -4,21 +4,46 @@ import java.util.ArrayList;
 
 import luna.LunaException;
 
+/**
+ * Manages a list of tasks, providing operations to add, delete, mark, and unmark tasks.
+ */
 public class TaskList {
+    /**
+     * List storing all tasks.
+     */
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with an existing list of tasks.
+     *
+     * @param tasks The initial list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Adds a task to the list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes a task at the specified index.
+     *
+     * @param index The index of the task to be deleted (0-based).
+     * @throws LunaException If the index is out of bounds.
+     */
     public void deleteTask(int index) throws LunaException {
         if (index < 0 || index >= tasks.size()) {
             throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
@@ -26,6 +51,12 @@ public class TaskList {
         tasks.remove(index);
     }
 
+    /**
+     * Marks a task as completed at the specified index.
+     *
+     * @param index The index of the task to be marked as done (0-based).
+     * @throws LunaException If the index is out of bounds.
+     */
     public void markTask(int index) throws LunaException {
         if (index < 0 || index >= tasks.size()) {
             throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
@@ -33,6 +64,12 @@ public class TaskList {
         tasks.get(index).mark();
     }
 
+    /**
+     * Unmarks a task (marks it as not completed) at the specified index.
+     *
+     * @param index The index of the task to be unmarked (0-based).
+     * @throws LunaException If the index is out of bounds.
+     */
     public void unmarkTask(int index) throws LunaException {
         if (index < 0 || index >= tasks.size()) {
             throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
@@ -40,10 +77,18 @@ public class TaskList {
         tasks.get(index).unmark();
     }
 
+    /**
+     * Returns the list of tasks.
+     *
+     * @return The current list of tasks.
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Prints the task list to the console.
+     */
     public void printList() {
         if (tasks.isEmpty()) {
             System.out.println("Your list is empty :<. Add something!");
