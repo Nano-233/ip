@@ -41,6 +41,7 @@ public class Luna {
                 ui.showLine();
             }
         }
+        ui.close();
     }
 
     public static void main(String[] args) {
