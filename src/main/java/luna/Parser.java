@@ -8,7 +8,19 @@ import luna.command.ListCommand;
 import luna.command.MarkCommand;
 import luna.command.UnmarkCommand;
 
+/**
+ * Parses user input and returns the appropriate command for execution.
+ * This class processes raw user input and translates it into corresponding command objects.
+ */
 public class Parser {
+
+    /**
+     * Parses the given user input and returns a command to execute.
+     *
+     * @param userInput The raw input provided by the user.
+     * @return The corresponding command object.
+     * @throws LunaException If the input does not match any recognized commands.
+     */
     public Command parse(String userInput) throws LunaException {
         String[] parts = userInput.split(" ", 2);
         String commandWord = parts[0];
@@ -27,7 +39,10 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new LunaException(LunaException.ErrorType.UNKNOWN_COMMAND, "");
+            throw new LunaException(
+                    LunaException.ErrorType.UNKNOWN_COMMAND,
+                    ""
+            );
         }
     }
 }
