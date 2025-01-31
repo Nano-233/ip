@@ -1,6 +1,7 @@
 package luna.task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import luna.LunaException;
 
@@ -75,6 +76,22 @@ public class TaskList {
             throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
         }
         tasks.get(index).unmark();
+    }
+
+    /**
+     * Searches for tasks that contain the given keyword in their description.
+     *
+     * @param keyword The keyword to search for.
+     * @return A list of matching tasks.
+     */
+    public List<Task> findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
     }
 
     /**
