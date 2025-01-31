@@ -2,8 +2,17 @@ ____________________________________________________________
      /\_/\  
     ( o.o )  
      > <3 <    
-Hello I'm Luna 
+Hello I'm luna.Luna 
 How may I help?
+____________________________________________________________
+____________________________________________________________
+Incorrect format :< There are no tasks to delete!
+____________________________________________________________
+____________________________________________________________
+Your list is empty :<. Add something!
+____________________________________________________________
+____________________________________________________________
+Sorry :< I don't quite understand
 ____________________________________________________________
 ____________________________________________________________
 Got it~ I've added this task:
@@ -11,29 +20,25 @@ Got it~ I've added this task:
 Now you have 1 tasks in the list!!
 ____________________________________________________________
 ____________________________________________________________
-Got it~ I've added this task:
-[D][ ] return book (by: Sunday)
-Now you have 2 tasks in the list!!
+Incorrect format :< Correct format for deadline is `deadline <description> /by <d/M/yyyy>`
 ____________________________________________________________
 ____________________________________________________________
-Got it~ I've added this task:
-[E][ ] project meeting (from: Monday 2pm to: 4pm)
-Now you have 3 tasks in the list!!
+Incorrect format :< Correct format for event is `event <description> /from <d/M/yyyy> /to <d/M/yyyy>`
 ____________________________________________________________
 ____________________________________________________________
-Incorrect format :< Correct format for todo is `todo <description>`
+Incorrect format :< Correct format: `todo <description>`
 ____________________________________________________________
 ____________________________________________________________
-Incorrect format :< Correct format for deadline is `deadline <description> /by <time>`
+Incorrect format :< Correct format: `deadline <description> /by <dd/mm/yyyy>`
 ____________________________________________________________
 ____________________________________________________________
-Incorrect format :< Correct format for event is `event <description> /from <start> /to <end>`
+Incorrect format :< Correct format: `event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>`
 ____________________________________________________________
 ____________________________________________________________
-Incorrect format :< Correct format for deadline is `deadline <description> /by <time>`
+Incorrect format :< Correct format: `deadline <description> /by <dd/mm/yyyy>`
 ____________________________________________________________
 ____________________________________________________________
-Incorrect format :< Correct format for event is `event <description> /from <start> /to <end>`
+Incorrect format :< Correct format: `event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>`
 ____________________________________________________________
 ____________________________________________________________
 Yay!~ I've marked this task as done:
@@ -50,20 +55,58 @@ ____________________________________________________________
 Check the task number again to make sure it's correct~
 ____________________________________________________________
 ____________________________________________________________
-Incorrect format :< Correct format for delete is `delete <task number>`
+Incorrect format :< Correct format for delete is `delete <task number>` or `delete all`
+____________________________________________________________
+____________________________________________________________
+Oki~ I've removed all tasks!
+Now you have 0 tasks left in the list~
+____________________________________________________________
+____________________________________________________________
+Incorrect format :< There are no tasks to delete!
+____________________________________________________________
+____________________________________________________________
+Got it~ I've added this task:
+[T][ ] new task
+Now you have 1 tasks in the list!!
+____________________________________________________________
+____________________________________________________________
+Got it~ I've added this task:
+[D][ ] submit report (by: 15 of March 2025)
+Now you have 2 tasks in the list!!
+____________________________________________________________
+____________________________________________________________
+Got it~ I've added this task:
+[E][ ] team meeting (from: 1 of April 2025 to: 2 of April 2025)
+Now you have 3 tasks in the list!!
+____________________________________________________________
+____________________________________________________________
+Here are the tasks in your list:
+1. [T][ ] new task
+2. [D][ ] submit report (by: 15 of March 2025)
+3. [E][ ] team meeting (from: 1 of April 2025 to: 2 of April 2025)
+____________________________________________________________
+____________________________________________________________
+Check the task number again to make sure it's correct~
 ____________________________________________________________
 ____________________________________________________________
 Check the task number again to make sure it's correct~
 ____________________________________________________________
 ____________________________________________________________
 Oki~ I've removed this task!:
-[T][ ] read book
+[D][ ] submit report (by: 15 of March 2025)
 Now you have 2 tasks left in the list~
 ____________________________________________________________
 ____________________________________________________________
 Here are the tasks in your list:
-1. [D][ ] return book (by: Sunday)
-2. [E][ ] project meeting (from: Monday 2pm to: 4pm)
+1. [T][ ] new task
+2. [E][ ] team meeting (from: 1 of April 2025 to: 2 of April 2025)
+____________________________________________________________
+____________________________________________________________
+Oki~ I've removed all tasks!
+Now you have 0 tasks left in the list~
+____________________________________________________________
+____________________________________________________________
+Your list is empty :<. Add something!
 ____________________________________________________________
 ____________________________________________________________
 Bye~

@@ -1,3 +1,5 @@
+package luna.ui;
+
 import java.util.Scanner;
 
 public class Ui {
@@ -12,7 +14,7 @@ public class Ui {
     System.out.println("     /\\_/\\  ");
     System.out.println("    ( o.o )  ");
     System.out.println("     > <3 <    ");
-    System.out.println("Hello I'm Luna ");
+    System.out.println("Hello I'm luna.Luna ");
     System.out.println("How may I help?");
     System.out.println("____________________________________________________________");
   }

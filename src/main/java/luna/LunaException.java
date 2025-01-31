@@ -1,3 +1,5 @@
+package luna;
+
 public class LunaException extends Exception {
   public enum ErrorType {
     INVALID_FORMAT("Incorrect format :< "),

@@ -1,3 +1,10 @@
+package luna.command;
+
+import luna.LunaException;
+import luna.task.*;
+import luna.ui.Ui;
+import luna.storage.Storage;
+
 public class AddCommand extends Command {
   private final Task task;
 
