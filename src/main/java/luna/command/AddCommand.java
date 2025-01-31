@@ -19,19 +19,23 @@ public class AddCommand extends Command {
         switch (parts[0]) {
         case "todo":
             if (details.length < 1 || details[0].trim().isEmpty()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format: `todo <description>`");
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                        "Correct format: `todo <description>`");
             }
             task = new Todo(details[0]);
             break;
         case "deadline":
             if (details.length < 2 || details[0].trim().isEmpty() || details[1].trim().isEmpty()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format: `deadline <description> /by <dd/mm/yyyy>`");
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                        "Correct format: `deadline <description> /by <dd/mm/yyyy>`");
             }
             task = new Deadline(details[0], details[1]);
             break;
         case "event":
-            if (details.length < 3 || details[0].trim().isEmpty() || details[1].trim().isEmpty() || details[2].trim().isEmpty()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format: `event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>`");
+            if (details.length < 3 || details[0].trim().isEmpty()
+                        || details[1].trim().isEmpty() || details[2].trim().isEmpty()) {
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                        "Correct format: `event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>`");
             }
             task = new Event(details[0], details[1], details[2]);
             break;

@@ -14,7 +14,8 @@ public class DeleteCommand extends Command {
         String[] parts = input.split(" ", 2);
 
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format for delete is `delete <task number>` or `delete all`");
+            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                    "Correct format for delete is `delete <task number>` or `delete all`");
         }
 
         if (parts[1].equalsIgnoreCase("all")) {
@@ -25,7 +26,8 @@ public class DeleteCommand extends Command {
                 this.index = Integer.parseInt(parts[1]) - 1;
                 this.deleteAll = false;
             } catch (NumberFormatException e) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format for delete is `delete <task number>` or `delete all`");
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                        "Correct format for delete is `delete <task number>` or `delete all`");
             }
         }
     }
@@ -34,7 +36,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) throws LunaException {
         if (deleteAll) {
             if (tasks.getTasks().isEmpty()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "There are no tasks to delete!");
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                        "There are no tasks to delete!");
             }
 
             tasks.getTasks().clear();

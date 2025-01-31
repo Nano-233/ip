@@ -8,9 +8,10 @@ import java.util.Locale;
 import luna.LunaException;
 
 public class Deadline extends Task {
-    protected LocalDate by;
     private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
-    private static final DateTimeFormatter OUTPUT_FORMATTER = DateTimeFormatter.ofPattern("d 'of' MMMM yyyy", Locale.ENGLISH);
+    private static final DateTimeFormatter OUTPUT_FORMATTER =
+            DateTimeFormatter.ofPattern("d 'of' MMMM yyyy", Locale.ENGLISH);
+    protected LocalDate by;
 
     public Deadline(String description, LocalDate by) {
         super(description);
@@ -22,7 +23,8 @@ public class Deadline extends Task {
         try {
             this.by = LocalDate.parse(by.trim(), INPUT_FORMATTER);
         } catch (DateTimeParseException e) {
-            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format for deadline is `deadline <description> /by <d/M/yyyy>`");
+            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                    "Correct format for deadline is `deadline <description> /by <d/M/yyyy>`");
         }
     }
 

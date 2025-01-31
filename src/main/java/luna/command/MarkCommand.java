@@ -12,7 +12,8 @@ public class MarkCommand extends Command {
         try {
             this.index = Integer.parseInt(input.split(" ")[1]) - 1;
         } catch (Exception e) {
-            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format for mark is `mark <task number>`");
+            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                    "Correct format for mark is `mark <task number>`");
         }
     }
 

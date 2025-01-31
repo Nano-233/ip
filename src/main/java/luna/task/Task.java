@@ -3,9 +3,9 @@ package luna.task;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
+    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
     protected String description;
     protected boolean isDone;
-    private static final DateTimeFormatter INPUT_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyy");
 
     public Task(String description) {
         this.description = description;
