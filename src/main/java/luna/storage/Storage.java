@@ -1,17 +1,26 @@
+package luna.storage;
+
+import luna.LunaException;
+import luna.task.Task;
+
 import java.io.*;
 import java.util.ArrayList;
 
-public class LunaStorage {
-  private static final String FILE_PATH = "./data/Luna.txt";
+public class Storage {
+  private final String filePath;
 
-  public static void saveTasks(ArrayList<Task> tasks) {
+  public Storage(String filePath) {
+    this.filePath = filePath;
+  }
+
+  public void saveTasks(ArrayList<Task> tasks) {
     try {
       File directory = new File("./data");
       if (!directory.exists()) {
         directory.mkdir();
       }
 
-      BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH));
+      BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
       for (Task task : tasks) {
         writer.write(task.toFileFormat() + "\n");
       }
@@ -21,33 +30,25 @@ public class LunaStorage {
     }
   }
 
-  public static ArrayList<Task> loadTasks() {
+  public ArrayList<Task> loadTasks() throws LunaException {
     ArrayList<Task> tasks = new ArrayList<>();
-    int skippedTasks = 0;
     try {
-      File file = new File(FILE_PATH);
+      File file = new File(filePath);
       if (!file.exists()) {
         return tasks;
       }
-      BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+      BufferedReader reader = new BufferedReader(new FileReader(filePath));
       String line;
       while ((line = reader.readLine()) != null) {
         Task task = Task.fromFileFormat(line);
         if (task != null) {
           tasks.add(task);
-        } else {
-          skippedTasks++;
         }
       }
       reader.close();
     } catch (IOException e) {
-      System.out.println("Failed to load tasks.");
-    }
-
-    if (skippedTasks > 0) {
-      System.out.println("Skipped " + skippedTasks + " corrupted tasks.");
+      throw new LunaException(LunaException.ErrorType.UNKNOWN_COMMAND, "Failed to load tasks.");
     }
     return tasks;
   }
-
 }

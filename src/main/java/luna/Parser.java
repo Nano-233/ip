@@ -1,3 +1,7 @@
+package luna;
+
+import luna.command.*;
+
 public class Parser {
   public Command parse(String userInput) throws LunaException {
     String[] parts = userInput.split(" ", 2);
