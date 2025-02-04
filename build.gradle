@@ -6,6 +6,7 @@ plugins {
 }
 
 checkstyle {
+    //checkstyle using gradle
     toolVersion = '10.2'
 }
 
