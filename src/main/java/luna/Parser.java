@@ -1,5 +1,6 @@
 package luna;
 
+
 import luna.command.AddCommand;
 import luna.command.Command;
 import luna.command.DeleteCommand;
@@ -11,7 +12,6 @@ import luna.command.UnmarkCommand;
 
 /**
  * Parses user input and returns the appropriate command for execution.
- * This class processes raw user input and translates it into corresponding command objects.
  */
 public class Parser {
 
@@ -42,10 +42,7 @@ public class Parser {
         case "bye":
             return new ExitCommand();
         default:
-            throw new LunaException(
-                    LunaException.ErrorType.UNKNOWN_COMMAND,
-                    ""
-            );
+            throw new LunaException(LunaException.ErrorType.UNKNOWN_COMMAND, "");
         }
     }
 }
