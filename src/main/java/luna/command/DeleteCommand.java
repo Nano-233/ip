@@ -4,20 +4,19 @@ import luna.LunaException;
 import luna.storage.Storage;
 import luna.task.Task;
 import luna.task.TaskList;
-import luna.ui.Ui;
 
 /**
- * Represents a command to delete a specific task or all tasks from the task list.
+ * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
     private final Integer index; // Can be null if "all" is used
     private final boolean deleteAll;
 
     /**
-     * Constructs a DeleteCommand instance.
+     * Constructs a DeleteCommand object.
      *
-     * @param input The user input specifying which task to delete or if all tasks should be deleted.
-     * @throws LunaException If the format is invalid or the task number is not a valid integer.
+     * @param input The input command string.
+     * @throws LunaException If the input format is invalid.
      */
     public DeleteCommand(String input) throws LunaException {
         String[] parts = input.split(" ", 2);
@@ -42,37 +41,30 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Executes the delete command, removing either a specific task or all tasks from the list.
+     * Executes the delete command and returns a response.
      *
-     * @param tasks   The task list to modify.
-     * @param ui      The user interface for displaying messages.
-     * @param storage The storage handler to save changes.
-     * @throws LunaException If there are no tasks to delete or if the task index is invalid.
+     * @param tasks   The task list.
+     * @param storage The storage handler.
+     * @return A message confirming the deletion.
+     * @throws LunaException If an invalid task number is provided.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws LunaException {
+    public String executeAndReturn(TaskList tasks, Storage storage) throws LunaException {
         if (deleteAll) {
             if (tasks.getTasks().isEmpty()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
-                        "There are no tasks to delete!");
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "There are no tasks to delete!");
             }
-
             tasks.getTasks().clear();
             storage.saveTasks(tasks.getTasks());
-
-            System.out.println("Oki~ I've removed all tasks!");
-            System.out.println("Now you have 0 tasks left in the list~");
+            return "Oki~ I've removed all tasks!\nNow you have 0 tasks left in the list~";
         } else {
             if (index < 0 || index >= tasks.getTasks().size()) {
                 throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
             }
-
             Task removedTask = tasks.getTasks().remove((int) index);
             storage.saveTasks(tasks.getTasks());
-
-            System.out.println("Oki~ I've removed this task!:");
-            System.out.println(removedTask);
-            System.out.println("Now you have " + tasks.getTasks().size() + " tasks left in the list~");
+            return "Oki~ I've removed this task!:\n" + removedTask
+                           + "\nNow you have " + tasks.getTasks().size() + " tasks left in the list~";
         }
     }
 }

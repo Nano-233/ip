@@ -1,44 +1,32 @@
 package luna.command;
 
-import java.util.List;
-
-import luna.LunaException;
 import luna.storage.Storage;
-import luna.task.Task;
 import luna.task.TaskList;
-import luna.ui.Ui;
 
 /**
- * Represents a command to find tasks based on a keyword search.
+ * Represents a command to find tasks containing a keyword in the task list.
  */
 public class FindCommand extends Command {
     private final String keyword;
 
     /**
-     * Constructs a FindCommand with a given search keyword.
+     * Constructs a FindCommand object.
      *
-     * @param input The user input containing the search keyword.
-     * @throws LunaException If the keyword is missing.
+     * @param input The input command string.
      */
-    public FindCommand(String input) throws LunaException {
-        String[] parts = input.split(" ", 2);
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
-                    "Correct format: `find <keyword>`");
-        }
-        this.keyword = parts[1].trim();
+    public FindCommand(String input) {
+        this.keyword = input.substring(5).trim();
     }
 
     /**
-     * Executes the find operation by searching for tasks containing the keyword.
+     * Executes the find command and returns the search results.
      *
-     * @param tasks   The task list to search in.
-     * @param ui      The user interface to display results.
-     * @param storage The storage handler (unused in this command).
+     * @param tasks   The task list.
+     * @param storage The storage handler.
+     * @return A message listing the found tasks.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        List<Task> matchingTasks = tasks.findTasks(keyword);
-        ui.showFindResults(matchingTasks);
+    public String executeAndReturn(TaskList tasks, Storage storage) {
+        return tasks.findTasks(keyword);
     }
 }
