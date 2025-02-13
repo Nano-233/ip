@@ -50,16 +50,14 @@ public class TaskList {
      * Deletes a task at the specified index.
      *
      * @param index The index of the task to be deleted (0-based).
-     * @return A message confirming the deletion.
+     * @return The deleted task.
      * @throws LunaException If the index is out of bounds.
      */
-    public String deleteTask(int index) throws LunaException {
+    public Task deleteTask(int index) throws LunaException {
         if (index < 0 || index >= tasks.size()) {
             throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
         }
-        Task removedTask = tasks.remove(index);
-        return "Oki~ I've removed this task!:\n" + removedTask
-                       + "\nNow you have " + tasks.size() + " tasks left in the list~";
+        return tasks.remove(index);
     }
 
     /**
