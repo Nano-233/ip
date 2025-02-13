@@ -18,6 +18,7 @@ public class Luna {
      * @param filePath Path to the storage file.
      */
     public Luna(String filePath) {
+
         storage = new Storage(filePath);
         parser = new Parser();
 
@@ -26,6 +27,8 @@ public class Luna {
         } catch (LunaException e) {
             tasks = new TaskList();
         }
+
+        assert storage != null : "Storage should be initialized";
     }
 
     /**
