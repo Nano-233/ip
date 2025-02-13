@@ -1,6 +1,7 @@
 package luna.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import luna.LunaException;
@@ -95,17 +96,12 @@ public class TaskList {
      * @return A message listing the found tasks.
      */
     public String findTasks(String... keywords) {
-        List<Task> matchingTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            String description = task.getDescription().toLowerCase();
-            for (String keyword : keywords) {
-                if (description.contains(keyword)) {
-                    matchingTasks.add(task);
-                    break;
-                }
-            }
-        }
+        List<Task> matchingTasks = tasks.stream()
+                                           .filter(task -> {
+                                               String description = task.getDescription().toLowerCase();
+                                               return Arrays.stream(keywords).anyMatch(description::contains);
+                                           })
+                                           .toList();
 
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found!";
@@ -113,8 +109,9 @@ public class TaskList {
 
         StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            result.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+            result.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
+
         return result.toString().trim();
     }
 
@@ -134,13 +131,16 @@ public class TaskList {
      */
     public String printList() {
         if (tasks.isEmpty()) {
-            return "Your list is empty :<. Add something!";
+            return "Your task list is empty!";
         }
 
-        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-        }
-        return result.toString().trim();
+        StringBuilder result = new StringBuilder("Here are your tasks:\n");
+
+        tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .reduce((a, b) -> a + "\n" + b)
+                .ifPresent(result::append);
+
+        return result.toString();
     }
 }
