@@ -10,12 +10,21 @@ class TodoTest {
     void todoCreation_validDescription_success() {
         Todo todo = new Todo("Finish homework");
         assertEquals("[T][ ] Finish homework", todo.toString());
+
+        // Test with tags
+        todo.addTag("school");
+        assertEquals("[T][ ] Finish homework #school", todo.toString());
     }
 
     @Test
     void toFileFormat_validTodo_correctFormat() {
         Todo todo = new Todo("Go jogging");
-        assertEquals("T | 0 | Go jogging", todo.toFileFormat());
+        assertEquals("T | 0 |   | Go jogging", todo.toFileFormat()); // Empty tags should be an empty field
+
+        // Test with tags
+        todo.addTag("exercise");
+        todo.addTag("morning");
+        assertEquals("T | 0 | exercise,morning | Go jogging", todo.toFileFormat());
     }
 
     @Test

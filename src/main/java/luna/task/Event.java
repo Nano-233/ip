@@ -71,9 +71,10 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E][" + getStatusIcon() + "] " + description + " (from: " + from.format(OUTPUT_FORMATTER)
-                       + " to: " + to.format(OUTPUT_FORMATTER) + ")";
+        return "[E][" + getStatusIcon() + "] " + description + " (from: "
+                       + from.format(OUTPUT_FORMATTER) + " to: " + to.format(OUTPUT_FORMATTER) + ")" + tagToString();
     }
+
 
     /**
      * Converts the event to a string format for file storage.
@@ -82,7 +83,9 @@ public class Event extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "E | " + (isDone ? "1" : "0") + " | " + description + " | "
-                       + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
+        return "E | " + (isDone ? "1" : "0") + " | "
+                       + (tags.isEmpty() ? " " : String.join(",", tags)) + " | "
+                       + description + " | " + from.format(INPUT_FORMATTER) + " | " + to.format(INPUT_FORMATTER);
     }
+
 }

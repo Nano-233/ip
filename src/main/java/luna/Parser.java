@@ -8,6 +8,7 @@ import luna.command.ExitCommand;
 import luna.command.FindCommand;
 import luna.command.ListCommand;
 import luna.command.MarkCommand;
+import luna.command.TagCommand;
 import luna.command.UnmarkCommand;
 
 /**
@@ -39,6 +40,8 @@ public class Parser {
             return new DeleteCommand(userInput);
         case "find":
             return new FindCommand(userInput);
+        case "tag":
+            return new TagCommand(userInput);
         case "bye":
             return new ExitCommand();
         default:
