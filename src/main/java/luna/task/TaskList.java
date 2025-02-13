@@ -133,13 +133,16 @@ public class TaskList {
      */
     public String printList() {
         if (tasks.isEmpty()) {
-            return "Your list is empty :<. Add something!";
+            return "Your task list is empty!";
         }
 
-        StringBuilder result = new StringBuilder("Here are the tasks in your list:\n");
-        for (int i = 0; i < tasks.size(); i++) {
-            result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
-        }
-        return result.toString().trim();
+        StringBuilder result = new StringBuilder("Here are your tasks:\n");
+
+        tasks.stream()
+                .map(task -> (tasks.indexOf(task) + 1) + ". " + task)
+                .reduce((a, b) -> a + "\n" + b)
+                .ifPresent(result::append);
+
+        return result.toString();
     }
 }

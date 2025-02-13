@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import luna.LunaException;
 import luna.task.Task;
@@ -38,7 +40,7 @@ public class Storage {
             File directory = file.getParentFile();
 
             if (directory != null && !directory.exists()) {
-                directory.mkdirs(); // Ensure all parent directories exist
+                directory.mkdirs();
             }
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
@@ -59,26 +61,19 @@ public class Storage {
      * @throws LunaException If an error occurs while reading the file.
      */
     public ArrayList<Task> loadTasks() throws LunaException {
-        ArrayList<Task> tasks = new ArrayList<>();
-        try {
-            File file = new File(filePath);
-            if (!file.exists()) {
-                return tasks;
-            }
-
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = Task.fromFileFormat(line);
-                if (task != null) {
-                    tasks.add(task);
-                }
-            }
-            reader.close();
-        } catch (IOException e) {
-            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
-                    "Failed to load tasks: " + e.getMessage());
+        File file = new File(filePath);
+        if (!file.exists()) {
+            return new ArrayList<>();
         }
-        return tasks;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            return reader.lines()
+                           .map(Task::fromFileFormat)
+                           .filter(Objects::nonNull)
+                           .collect(Collectors.toCollection(ArrayList::new));
+        } catch (IOException e) {
+            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Failed to load tasks: " + e.getMessage());
+        }
     }
+
 }
