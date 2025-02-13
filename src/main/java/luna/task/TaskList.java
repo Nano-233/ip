@@ -145,4 +145,23 @@ public class TaskList {
 
         return result.toString();
     }
+
+    /**
+     * Tags a task at the specified index with the given tag.
+     *
+     * @param index The index of the task to be tagged (0-based).
+     * @param tag   The tag to add.
+     * @throws LunaException If the index is out of bounds or the tag is empty.
+     */
+    public void addTag(int index, String tag) throws LunaException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "Invalid task number.");
+        }
+        if (tag == null || tag.trim().isEmpty()) {
+            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Tag cannot be empty.");
+        }
+
+        Task task = tasks.get(index);
+        task.addTag(tag);
+    }
 }

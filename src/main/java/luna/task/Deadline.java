@@ -63,7 +63,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D][" + getStatusIcon() + "] " + description + " (by: " + by.format(OUTPUT_FORMATTER) + ")";
+        return "[D][" + getStatusIcon() + "] " + description
+                       + " (by: " + by.format(OUTPUT_FORMATTER) + ")" + tagToString();
     }
 
     /**
@@ -73,6 +74,9 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileFormat() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + by.format(INPUT_FORMATTER);
+        return "D | " + (isDone ? "1" : "0") + " | "
+                       + (tags.isEmpty() ? " " : String.join(",", tags)) + " | "
+                       + description + " | " + by.format(INPUT_FORMATTER);
     }
+
 }
