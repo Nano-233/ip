@@ -58,10 +58,7 @@ public class DeleteCommand extends Command {
             storage.saveTasks(tasks.getTasks());
             return "Oki~ I've removed all tasks!\nNow you have 0 tasks left in the list~";
         } else {
-            if (index < 0 || index >= tasks.getTasks().size()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
-            }
-            Task removedTask = tasks.getTasks().remove((int) index);
+            Task removedTask = tasks.deleteTask(index);
             storage.saveTasks(tasks.getTasks());
             return "Oki~ I've removed this task!:\n" + removedTask
                            + "\nNow you have " + tasks.getTasks().size() + " tasks left in the list~";

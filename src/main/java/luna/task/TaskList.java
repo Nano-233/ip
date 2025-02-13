@@ -1,6 +1,7 @@
 package luna.task;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import luna.LunaException;
@@ -49,16 +50,14 @@ public class TaskList {
      * Deletes a task at the specified index.
      *
      * @param index The index of the task to be deleted (0-based).
-     * @return A message confirming the deletion.
+     * @return The deleted task.
      * @throws LunaException If the index is out of bounds.
      */
-    public String deleteTask(int index) throws LunaException {
+    public Task deleteTask(int index) throws LunaException {
         if (index < 0 || index >= tasks.size()) {
             throw new LunaException(LunaException.ErrorType.INVALID_TASK_NUMBER, "");
         }
-        Task removedTask = tasks.remove(index);
-        return "Oki~ I've removed this task!:\n" + removedTask
-                       + "\nNow you have " + tasks.size() + " tasks left in the list~";
+        return tasks.remove(index);
     }
 
     /**
@@ -98,17 +97,12 @@ public class TaskList {
      * @return A message listing the found tasks.
      */
     public String findTasks(String... keywords) {
-        List<Task> matchingTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            String description = task.getDescription().toLowerCase();
-            for (String keyword : keywords) {
-                if (description.contains(keyword)) {
-                    matchingTasks.add(task);
-                    break;
-                }
-            }
-        }
+        List<Task> matchingTasks = tasks.stream()
+                                           .filter(task -> {
+                                               String description = task.getDescription().toLowerCase();
+                                               return Arrays.stream(keywords).anyMatch(description::contains);
+                                           })
+                                           .toList();
 
         if (matchingTasks.isEmpty()) {
             return "No matching tasks found!";
@@ -116,8 +110,9 @@ public class TaskList {
 
         StringBuilder result = new StringBuilder("Here are the matching tasks in your list:\n");
         for (int i = 0; i < matchingTasks.size(); i++) {
-            result.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
+            result.append(i + 1).append(". ").append(matchingTasks.get(i)).append("\n");
         }
+
         return result.toString().trim();
     }
 
