@@ -70,6 +70,13 @@ _✓ Adds the tag `urgent` to task #1._
 
 ---
 
+### 🚪 5. Exiting Luna  
+- **Exit the application**  
+```bye```
+_✓ Closes Luna safely._  
+
+---
+
 ## ⚙️ Under the Hood  
 Luna follows Object-Oriented Programming principles to ensure efficient task handling.  
 
