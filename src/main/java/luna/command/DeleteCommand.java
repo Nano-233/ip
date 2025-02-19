@@ -9,8 +9,8 @@ import luna.task.TaskList;
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    private final Integer index; // Can be null if "all" is used
-    private final boolean deleteAll;
+    private final Integer index;
+    private final boolean isDeleteAll;
 
     /**
      * Constructs a DeleteCommand object.
@@ -28,11 +28,11 @@ public class DeleteCommand extends Command {
 
         if (parts[1].equalsIgnoreCase("all")) {
             this.index = null;
-            this.deleteAll = true;
+            this.isDeleteAll = true;
         } else {
             try {
                 this.index = Integer.parseInt(parts[1]) - 1;
-                this.deleteAll = false;
+                this.isDeleteAll = false;
             } catch (NumberFormatException e) {
                 throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
                         "Correct format for delete is `delete <task number>` or `delete all`");
@@ -50,7 +50,7 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String executeAndReturn(TaskList tasks, Storage storage) throws LunaException {
-        if (deleteAll) {
+        if (isDeleteAll) {
             if (tasks.getTasks().isEmpty()) {
                 throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "There are no tasks to delete!");
             }
