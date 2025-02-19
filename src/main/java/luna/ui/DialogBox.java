@@ -40,6 +40,7 @@ public class DialogBox extends HBox {
         }
         dialog.setText(text);
         displayPicture.setImage(img);
+        this.setSpacing(10);
     }
 
     /**
@@ -61,7 +62,18 @@ public class DialogBox extends HBox {
      * @return A DialogBox representing the user's message.
      */
     public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+        DialogBox db = new DialogBox(s, i);
+        db.flip();
+        db.setAlignment(Pos.CENTER_RIGHT);
+        db.dialog.setStyle(
+                "-fx-background-color: #64B5F6; "
+                        + "-fx-text-fill: white; "
+                        + "-fx-background-radius: 15; "
+                        + "-fx-padding: 10; "
+                        + "-fx-border-color: #1E88E5; "
+                        + "-fx-border-radius: 15;"
+        );
+        return db;
     }
 
     /**
@@ -72,8 +84,16 @@ public class DialogBox extends HBox {
      * @return A DialogBox representing Luna's response, flipped to the left.
      */
     public static DialogBox getLunaDialog(String s, Image i) {
-        var db = new DialogBox(s, i);
-        db.flip();
+        DialogBox db = new DialogBox(s, i);
+        db.setAlignment(Pos.CENTER_LEFT);
+        db.dialog.setStyle(
+                "-fx-background-color: #E0E0E0; "
+                        + "-fx-text-fill: black; "
+                        + "-fx-background-radius: 15; "
+                        + "-fx-padding: 10; "
+                        + "-fx-border-color: #BDBDBD; "
+                        + "-fx-border-radius: 15;"
+        );
         return db;
     }
 }
