@@ -22,14 +22,10 @@ public class AddCommand extends Command {
      */
     public AddCommand(String input) throws LunaException {
         String[] parts = input.split(" ", 2);
-
-        if (parts.length < 2 || parts[1].trim().isEmpty()) {
-            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Task description cannot be empty.");
-        }
-
-        String[] details = parts[1].split(" /by | /from | /to ", 3);
-        this.task = createTask(parts[0], details);
+        this.task = createTask(parts[0], (parts.length > 1) ? parts[1] : "");
     }
+
+
 
     /**
      * Creates a Task object based on the specified task type and details.
@@ -39,23 +35,31 @@ public class AddCommand extends Command {
      * @return A Task object of the appropriate type.
      * @throws LunaException If the task type is invalid or the details are incorrectly formatted.
      */
-    private Task createTask(String taskType, String[] details) throws LunaException {
-        switch (taskType.toLowerCase()) {
-        case "todo" -> {
-            validateDetails(details, 1, "todo <description>");
-            return new Todo(details[0]);
+    private Task createTask(String taskType, String details) throws LunaException {
+        if (details.trim().isEmpty()) {
+            throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
+                    "Task description cannot be empty.\nCorrect format: `" + getFormat(taskType) + "`");
         }
-        case "deadline" -> {
-            validateDetails(details, 2, "deadline <description> /by <dd/mm/yyyy>");
-            return new Deadline(details[0], details[1]);
-        }
-        case "event" -> {
-            validateDetails(details, 3, "event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>");
-            return new Event(details[0], details[1], details[2]);
-        }
-        default -> throw new LunaException(LunaException.ErrorType.UNKNOWN_COMMAND, "Invalid command.");
-        }
+
+        String[] splitDetails = details.split(" /by | /from | /to ", 3);
+
+        return switch (taskType.toLowerCase()) {
+            case "todo" -> {
+                validateDetails(splitDetails, 1, "todo <description>");
+                yield new Todo(splitDetails[0]);
+            }
+            case "deadline" -> {
+                validateDetails(splitDetails, 2, "deadline <description> /by <dd/mm/yyyy>");
+                yield new Deadline(splitDetails[0], splitDetails[1]);
+            }
+            case "event" -> {
+                validateDetails(splitDetails, 3, "event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>");
+                yield new Event(splitDetails[0], splitDetails[1], splitDetails[2]);
+            }
+            default -> throw new LunaException(LunaException.ErrorType.UNKNOWN_COMMAND, "Invalid command.");
+        };
     }
+
 
     /**
      * Validates that the provided details contain the required number of fields.
@@ -66,7 +70,7 @@ public class AddCommand extends Command {
      * @throws LunaException If the details array has missing or empty fields.
      */
     private void validateDetails(String[] details, int requiredLength, String correctFormat) throws LunaException {
-        if (details.length < requiredLength || anyEmpty(details, requiredLength)) {
+        if (details.length < requiredLength) {
             throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "Correct format: `" + correctFormat + "`");
         }
     }
@@ -93,5 +97,20 @@ public class AddCommand extends Command {
         storage.saveTasks(tasks.getTasks());
         return "Got it~ I've added this task:\n" + task + "\nNow you have "
                        + tasks.getTasks().size() + " tasks in the list!!";
+    }
+
+    /**
+     * Returns the correct format string based on task type.
+     *
+     * @param taskType The task type ("todo", "deadline", "event").
+     * @return The expected format string.
+     */
+    private String getFormat(String taskType) {
+        return switch (taskType.toLowerCase()) {
+            case "todo" -> "todo <description>";
+            case "deadline" -> "deadline <description> /by <dd/mm/yyyy>";
+            case "event" -> "event <description> /from <dd/mm/yyyy> /to <dd/mm/yyyy>";
+            default -> "<unknown format>";
+        };
     }
 }
