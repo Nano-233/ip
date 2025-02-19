@@ -16,4 +16,5 @@ bin/
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
 data/Luna.TXT
+test.TXT
 META-INF/
