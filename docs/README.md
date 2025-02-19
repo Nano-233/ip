@@ -6,7 +6,7 @@
 ## 🎯 Introduction  
 Luna Task Manager is a simple yet powerful **command-line** task organizer. Whether you're juggling deadlines, planning events, or just need to keep track of tasks, Luna helps you manage everything efficiently. With intuitive commands and automatic saving, you'll never lose track of your to-dos again!  
 
-> [!TIP]  
+> [!TIP]
 > Luna **auto-saves** your tasks, so you won’t lose progress even if you close the app!  
 
 ---
@@ -34,7 +34,7 @@ _✓ Adds a task: "Bake a cake"._
 _✓ Adds "Submit report" due on May 30, 2025._  
 - **Event** → Tasks with a start and end date.  
 `event F1 Singapore /from 03/05/2025 /to 10/05/2025`
-_✓ Schedules "F1 Singapore" from Feb 3 to Feb 10._  
+_✓ Schedules "F1 Singapore" from May 3 to May 10._  
 
 ---
 
