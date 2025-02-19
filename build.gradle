@@ -34,7 +34,7 @@ test {
 }
 
 application {
-    mainClass.set("luna.Luna") // Change this to your actual main class
+    mainClass.set("luna.Launcher") // Change this to your actual main class
 }
 
 shadowJar {
