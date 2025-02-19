@@ -105,7 +105,7 @@ public class Task {
      * @return The corresponding Task object, or null if the format is incorrect.
      */
     public static Task fromFileFormat(String line) {
-        String[] parts = line.split(" \\| ", -1); // Preserve empty trailing fields
+        String[] parts = line.split(" \\| ", -1);
 
         if (parts.length < 4) {
             System.out.println("Skipping corrupted task (invalid format): " + line);

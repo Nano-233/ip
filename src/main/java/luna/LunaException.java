@@ -12,7 +12,7 @@ public class LunaException extends Exception {
         /**
          * Error type for incorrect command formats.
          */
-        INVALID_FORMAT("Incorrect format :< "),
+        INVALID_FORMAT("Incorrect format :<\n"),
 
         /**
          * Error type for invalid task numbers provided by the user.

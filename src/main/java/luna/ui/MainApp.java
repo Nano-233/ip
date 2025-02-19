@@ -19,7 +19,7 @@ public class MainApp extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("/view/MainWindow.fxml"));
-            AnchorPane root = fxmlLoader.load(); // Correctly load as an AnchorPane
+            AnchorPane root = fxmlLoader.load();
             Scene scene = new Scene(root);
             stage.setScene(scene);
 
