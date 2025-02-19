@@ -6,8 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import luna.LunaException;
 
+/**
+ * Tests the {@link Event} class to ensure correct functionality.
+ */
 class EventTest {
 
+    /**
+     * Ensures that the string representation of an event is correctly formatted.
+     *
+     * @throws LunaException if the date format is invalid.
+     */
     @Test
     void toString_correctFormat_success() throws LunaException {
         Event event = new Event("Meeting", "10/11/2025", "12/11/2025");
@@ -18,6 +26,11 @@ class EventTest {
         assertEquals("[E][ ] Meeting (from: 10 of November 2025 to: 12 of November 2025) #work", event.toString());
     }
 
+    /**
+     * Ensures that the event is correctly converted to a file format string.
+     *
+     * @throws LunaException if the date format is invalid.
+     */
     @Test
     void toFileFormat_validEvent_correctFormat() throws LunaException {
         Event event = new Event("Conference", "5/08/2025", "7/08/2025");

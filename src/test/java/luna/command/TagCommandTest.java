@@ -11,10 +11,17 @@ import luna.storage.Storage;
 import luna.task.TaskList;
 import luna.task.Todo;
 
+/**
+ * Tests the {@link TagCommand} class to ensure correct functionality.
+ */
 class TagCommandTest {
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Sets up a test environment with a sample task list before each test.
+     * The storage instance is stubbed to prevent actual file operations.
+     */
     @BeforeEach
     void setUp() {
         taskList = new TaskList();
@@ -22,6 +29,11 @@ class TagCommandTest {
         taskList.addTask(new Todo("Finish report"));
     }
 
+    /**
+     * Ensures that executing a valid tag command correctly adds a tag to a task.
+     *
+     * @throws LunaException if there is an error during execution.
+     */
     @Test
     void executeAndReturn_validIndex_tagsTask() throws LunaException {
         TagCommand tagCommand = new TagCommand("tag 1 important");
@@ -31,6 +43,11 @@ class TagCommandTest {
                              + "[T][ ] Finish report #important", result);
     }
 
+    /**
+     * Ensures that tagging an invalid task index results in an exception.
+     *
+     * @throws LunaException if there is an error during execution.
+     */
     @Test
     void executeAndReturn_invalidIndex_throwsException() throws LunaException {
         TagCommand tagCommand = new TagCommand("tag 2 urgent");
