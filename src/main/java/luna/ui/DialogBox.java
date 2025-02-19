@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 
 /**
  * Represents a single message in the chat, either from the user or from Luna.
@@ -41,6 +42,11 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
         this.setSpacing(10);
+        dialog.setWrapText(true);
+        dialog.setMaxWidth(250);
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
+        dialog.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
     }
 
     /**
