@@ -8,8 +8,16 @@ import org.junit.jupiter.api.Test;
 
 import luna.LunaException;
 
+/**
+ * Tests the {@link Deadline} class to ensure correct functionality.
+ */
 class DeadlineTest {
 
+    /**
+     * Ensures that the string representation of a deadline is correctly formatted.
+     *
+     * @throws LunaException if the date format is invalid.
+     */
     @Test
     void toString_correctFormat_success() throws LunaException {
         Deadline deadline = new Deadline("Submit Report", "30/12/2025");
@@ -20,6 +28,9 @@ class DeadlineTest {
         assertEquals("[D][ ] Submit Report (by: 30 of December 2025) #urgent", deadline.toString());
     }
 
+    /**
+     * Ensures that an exception is thrown for an invalid date format.
+     */
     @Test
     void invalidDateFormat_throwsException() {
         try {
@@ -30,6 +41,11 @@ class DeadlineTest {
         }
     }
 
+    /**
+     * Ensures that the deadline is correctly converted to a file format string.
+     *
+     * @throws LunaException if the date format is invalid.
+     */
     @Test
     void toFileFormat_validDeadline_correctFormat() throws LunaException {
         Deadline deadline = new Deadline("Submit Report", "30/12/2025");
