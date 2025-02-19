@@ -52,7 +52,7 @@ public class DeleteCommand extends Command {
     public String executeAndReturn(TaskList tasks, Storage storage) throws LunaException {
         if (isDeleteAll) {
             if (tasks.getTasks().isEmpty()) {
-                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "There are no tasks to delete!");
+                throw new LunaException(LunaException.ErrorType.INVALID_FORMAT, "There are no tasks to delete! :D");
             }
             tasks.getTasks().clear();
             storage.saveTasks(tasks.getTasks());

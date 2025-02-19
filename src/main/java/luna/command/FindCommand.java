@@ -21,7 +21,7 @@ public class FindCommand extends Command {
 
         if (parts.length < 2 || parts[1].trim().isEmpty()) {
             throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
-                    "Correct format for find is `find <keyword1> <keyword2> ...`");
+                    "Correct format for find is `find <keyword1> <keyword2> ...`~!");
         }
 
         this.keywords = parts[1].trim().toLowerCase().split(" ");

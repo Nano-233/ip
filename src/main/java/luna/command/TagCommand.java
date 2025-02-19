@@ -22,13 +22,13 @@ public class TagCommand extends Command {
             String[] parts = input.split(" ", 3);
             if (parts.length < 3 || parts[2].trim().isEmpty()) {
                 throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
-                        "Correct format for tagging is `tag <task number> <tag>`");
+                        "Correct format for tagging is `tag <task number> <tag>`!");
             }
             this.index = Integer.parseInt(parts[1]) - 1;
             this.tag = parts[2].trim();
         } catch (NumberFormatException e) {
             throw new LunaException(LunaException.ErrorType.INVALID_FORMAT,
-                    "Correct format for tagging is `tag <task number> <tag>`");
+                    "Correct format for tagging is `tag <task number> <tag>`!!");
         }
     }
 
